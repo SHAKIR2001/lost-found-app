@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { createItem } from "../services/api";
+import {toast}  from 'react-hot-toast';
 
 function ReportFound() {
 
@@ -34,7 +35,7 @@ function ReportFound() {
 
     } catch (error) {
       console.error(error);
-      alert("Error submitting form");
+      toast.error("Error submitting form");
     }
   };
 

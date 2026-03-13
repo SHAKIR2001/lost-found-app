@@ -5,10 +5,12 @@ import ReportLost from "./pages/ReportLost";
 import ReportFound from "./pages/ReportFound";
 import BrowseItems from "./pages/BrowseItems";
 import ItemDetails from "./pages/ItemDetails";
-import toast, { Toaster } from 'react-hot-toast';
+import { Toaster } from "react-hot-toast";
+
 function App() {
   return (
     <BrowserRouter>
+      <Toaster position="top-right" />
 
       <Routes>
 

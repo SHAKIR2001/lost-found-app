@@ -30,7 +30,7 @@ function ReportLost() {
         type: "lost"
       });
 
-      alert("Lost item reported successfully");
+      toast.success("Lost item reported successfully");
 
       setFormData({
         title: "",

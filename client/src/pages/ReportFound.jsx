@@ -29,8 +29,8 @@ function ReportFound() {
         ...formData,
         type: "found"
       });
-
-      alert("Found item reported successfully");
+      toast.success("Found item reported successfully");
+      
 
     } catch (error) {
       console.error(error);

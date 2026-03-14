@@ -2,16 +2,23 @@ import Item from "../models/Item.js";
 
 // CREATE ITEM
 export const createItem = async (req, res) => {
+
   try {
-    const item = new Item(req.body);
+
+    const item = new Item({
+      ...req.body,
+      image: req.file ? req.file.path : ""
+    });
+
     const savedItem = await item.save();
 
     res.status(201).json(savedItem);
+
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
-};
 
+};
 
 // GET ALL ITEMS
 export const getItems = async (req, res) => {

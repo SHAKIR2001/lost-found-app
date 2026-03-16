@@ -13,6 +13,7 @@ function ReportFound() {
     contactEmail: "",
     contactPhone: ""
   });
+  const [image, setImage] = useState(null);
 
   const handleChange = (e) => {
     setFormData({
@@ -24,13 +25,32 @@ function ReportFound() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    const data = new FormData();
+
+    Object.keys(formData).forEach((key) => {
+      data.append(key, formData[key]);
+    });
+
+    data.append("type", "found");
+
+    if (image) {
+      data.append("image", image);
+    }
+
     try {
 
-      await createItem({
-        ...formData,
-        type: "found"
-      });
+      await createItem(data);
       toast.success("Found item reported successfully");
+      setFormData({
+        title: "",
+        description: "",
+        location: "",
+        date: "",
+        contactName: "",
+        contactEmail: "",
+        contactPhone: ""
+      });
+      setImage(null);
       
       
 
@@ -51,6 +71,7 @@ function ReportFound() {
           type="text"
           name="title"
           placeholder="Item Name"
+          value={formData.title}
           onChange={handleChange}
           required
         />
@@ -58,6 +79,7 @@ function ReportFound() {
         <textarea
           name="description"
           placeholder="Description"
+          value={formData.description}
           onChange={handleChange}
           required
         />
@@ -66,6 +88,7 @@ function ReportFound() {
           type="text"
           name="location"
           placeholder="Location Found"
+          value={formData.location}
           onChange={handleChange}
           required
         />
@@ -73,6 +96,7 @@ function ReportFound() {
         <input
           type="date"
           name="date"
+          value={formData.date}
           onChange={handleChange}
           required
         />
@@ -81,6 +105,7 @@ function ReportFound() {
           type="text"
           name="contactName"
           placeholder="Your Name"
+          value={formData.contactName}
           onChange={handleChange}
           required
         />
@@ -89,6 +114,7 @@ function ReportFound() {
           type="email"
           name="contactEmail"
           placeholder="Email"
+          value={formData.contactEmail}
           onChange={handleChange}
           required
         />
@@ -97,8 +123,15 @@ function ReportFound() {
           type="text"
           name="contactPhone"
           placeholder="Phone"
+          value={formData.contactPhone}
           onChange={handleChange}
           required
+        />
+
+        <input
+          type="file"
+          accept="image/png,image/jpeg,image/jpg"
+          onChange={(e) => setImage(e.target.files?.[0] || null)}
         />
 
         <button type="submit">Submit</button>

@@ -5,9 +5,14 @@ export const createItem = async (req, res) => {
 
   try {
 
+    // determine uploaded image URL from multer/cloudinary file object
+    const imageUrl = req.file
+      ? (req.file.path || req.file.filename || req.file.secure_url || req.file.url || "")
+      : "";
+
     const item = new Item({
       ...req.body,
-      image: req.file ? req.file.path : ""
+      image: imageUrl
     });
 
     const savedItem = await item.save();
@@ -51,9 +56,15 @@ export const getItemById = async (req, res) => {
 // UPDATE ITEM
 export const updateItem = async (req, res) => {
   try {
+    const updates = { ...req.body };
+
+    if (req.file) {
+      updates.image = req.file.path || req.file.filename || req.file.secure_url || req.file.url || updates.image;
+    }
+
     const item = await Item.findByIdAndUpdate(
       req.params.id,
-      req.body,
+      updates,
       { new: true }
     );
 

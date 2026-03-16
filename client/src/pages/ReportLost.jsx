@@ -1,9 +1,8 @@
 import { useState } from "react";
 import { createItem } from "../services/api";
-import {toast}  from 'react-hot-toast';
+import { toast } from "react-hot-toast";
 
 function ReportLost() {
-
   const [formData, setFormData] = useState({
     title: "",
     description: "",
@@ -13,6 +12,7 @@ function ReportLost() {
     contactEmail: "",
     contactPhone: ""
   });
+  const [image, setImage] = useState(null);
 
   const handleChange = (e) => {
     setFormData({
@@ -24,15 +24,21 @@ function ReportLost() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    const data = new FormData();
+
+    Object.keys(formData).forEach((key) => {
+      data.append(key, formData[key]);
+    });
+
+    data.append("type", "lost");
+
+    if (image) {
+      data.append("image", image);
+    }
+
     try {
-
-      await createItem({
-        ...formData,
-        type: "lost"
-      });
-
+      await createItem(data);
       toast.success("Lost item reported successfully");
-
       setFormData({
         title: "",
         description: "",
@@ -42,7 +48,7 @@ function ReportLost() {
         contactEmail: "",
         contactPhone: ""
       });
-
+      setImage(null);
     } catch (error) {
       console.error(error);
       toast.error("Error submitting form");
@@ -54,7 +60,6 @@ function ReportLost() {
       <h2>Report Lost Item</h2>
 
       <form onSubmit={handleSubmit}>
-
         <input
           type="text"
           name="title"
@@ -116,8 +121,13 @@ function ReportLost() {
           required
         />
 
-        <button type="submit">Submit</button>
+        <input
+          type="file"
+          accept="image/png,image/jpeg,image/jpg"
+          onChange={(e) => setImage(e.target.files?.[0] || null)}
+        />
 
+        <button type="submit">Submit</button>
       </form>
     </div>
   );

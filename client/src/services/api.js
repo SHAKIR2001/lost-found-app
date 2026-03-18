@@ -22,4 +22,6 @@ export const createItem = (data) => {
 
 export const getItems = () => API.get("/items");
 
+export const getItemById = (id) => API.get(`/items/${id}`);
+
 export default API;

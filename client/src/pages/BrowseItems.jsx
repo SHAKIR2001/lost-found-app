@@ -47,23 +47,23 @@ function BrowseItems() {
   }, [items, query, typeFilter]);
 
   return (
-    <div className="app-shell">
+    <div className="flex min-h-screen flex-col bg-[radial-gradient(circle_at_12%_10%,rgba(15,118,110,0.2),transparent_34%),radial-gradient(circle_at_88%_20%,rgba(219,124,47,0.14),transparent_30%),linear-gradient(180deg,#f8fbff_0%,#f4f7fb_62%,#edf2f8_100%)] font-[Manrope] text-[#143247]">
       <Navbar />
 
-      <main className="main-content">
-        <section className="container">
-          <div className="page-head">
-            <h1>Browse posts</h1>
-            <p>
+      <main className="flex-1 py-[38px] pb-14">
+        <section className="mx-auto w-[min(1120px,92vw)]">
+          <div className="mb-[18px]">
+            <h1 className="m-0 text-[clamp(1.9rem,4vw,3rem)] leading-[1.12]">Browse posts</h1>
+            <p className="mt-2.5 max-w-[760px] text-[#5f7384]">
               Search by keyword, filter by report type, and open a post to view
               full details and contact information.
             </p>
           </div>
 
-          <div className="surface-card panel">
-            <div className="filter-row">
+          <div className="rounded-[18px] border border-[rgba(216,224,232,0.95)] bg-[rgba(255,255,255,0.9)] p-[22px] shadow-[0_14px_40px_rgba(14,37,53,0.08)]">
+            <div className="mb-4 grid grid-cols-[2fr_1fr] gap-3 max-[720px]:grid-cols-1">
               <input
-                className="input"
+                className="w-full rounded-[10px] border border-[#d8e0e8] bg-white px-[13px] py-3 text-[0.97rem] text-[#143247] transition focus:border-[#89b8cc] focus:outline-none focus:ring-4 focus:ring-[rgba(18,111,157,0.15)]"
                 type="text"
                 placeholder="Search by item title, description, or location"
                 value={query}
@@ -71,7 +71,7 @@ function BrowseItems() {
               />
 
               <select
-                className="select"
+                className="w-full rounded-[10px] border border-[#d8e0e8] bg-white px-[13px] py-3 text-[0.97rem] text-[#143247] transition focus:border-[#89b8cc] focus:outline-none focus:ring-4 focus:ring-[rgba(18,111,157,0.15)]"
                 value={typeFilter}
                 onChange={(event) => setTypeFilter(event.target.value)}
               >
@@ -82,23 +82,23 @@ function BrowseItems() {
             </div>
 
             {loading ? (
-              <p className="result-count">Loading posts...</p>
+              <p className="mb-[14px] mt-0 font-semibold text-[#5f7384]">Loading posts...</p>
             ) : error ? (
-              <div className="empty-state">
-                <p className="empty-title">Something went wrong</p>
-                <p className="empty-note">{error}</p>
+              <div className="rounded-xl border border-dashed border-[#b6c5d2] bg-[#fbfdff] px-[18px] py-[30px] text-center">
+                <p className="m-0 text-[1.1rem]">Something went wrong</p>
+                <p className="text-[#5f7384]">{error}</p>
               </div>
             ) : filteredItems.length === 0 ? (
-              <div className="empty-state">
-                <p className="empty-title">No matching posts found</p>
-                <p className="empty-note">
+              <div className="rounded-xl border border-dashed border-[#b6c5d2] bg-[#fbfdff] px-[18px] py-[30px] text-center">
+                <p className="m-0 text-[1.1rem]">No matching posts found</p>
+                <p className="text-[#5f7384]">
                   Try a different search term or choose another filter.
                 </p>
               </div>
             ) : (
               <>
-                <p className="result-count">{filteredItems.length} posts found</p>
-                <div className="items-grid">
+                <p className="mb-[14px] mt-0 font-semibold text-[#5f7384]">{filteredItems.length} posts found</p>
+                <div className="grid grid-cols-3 gap-3.5 max-[1024px]:grid-cols-2 max-[720px]:grid-cols-1">
                   {filteredItems.map((item) => (
                     <ItemCard key={item._id} item={item} />
                   ))}

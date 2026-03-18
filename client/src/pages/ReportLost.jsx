@@ -4,10 +4,10 @@ import ItemReportForm from "../components/ItemReportForm";
 
 function ReportLost() {
   return (
-    <div className="app-shell">
+    <div className="flex min-h-screen flex-col bg-[radial-gradient(circle_at_12%_10%,rgba(15,118,110,0.2),transparent_34%),radial-gradient(circle_at_88%_20%,rgba(219,124,47,0.14),transparent_30%),linear-gradient(180deg,#f8fbff_0%,#f4f7fb_62%,#edf2f8_100%)] font-[Manrope] text-[#143247]">
       <Navbar />
 
-      <main className="main-content">
+      <main className="flex-1 py-[38px] pb-14">
         <ItemReportForm
           type="lost"
           title="Report a lost item"
